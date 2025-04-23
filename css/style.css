@@ -1,0 +1,76 @@
+body {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#todo-container {
+  width: 1200px;
+  margin: 0 auto;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+#header {
+  margin: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+#input-box {
+  width: 800px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+#input-button {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  color: white;
+  background-color: blue;
+}
+
+#input-button:hover {
+  background-color: white;
+  color: black;
+}
+
+ul {
+  display: inline-block;
+  width: 400px;
+  list-style: none;
+  margin-top: 20px;
+  text-align: left;
+}
+
+li {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  float: right;
+  color: red;
+  cursor: pointer;
+  margin: 3px 5px;
+  border: none;
+  padding: 3px 5px;
+  background: none;
+}
