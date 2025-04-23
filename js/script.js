@@ -13,7 +13,7 @@ function addData() {
     const newData = {
         id: Date.now(),
         text: todoText,
-        completed: false
+        isSelected: false
     };
     console.log(newData);
     data.push(newData);
@@ -27,8 +27,8 @@ function toggleComplete(id) {
     data = data.map(todo => {
         if (todo.id === id) {
             console.log(todo);
-            const updated = { ...todo, completed: !todo.completed };
-            console.log();
+            const updated = { ...todo, isSelected: !todo.isSelected };
+            console.log(updated);
             return updated;
         }
         return todo;
@@ -47,11 +47,11 @@ function renderData() {
         const li = document.createElement("li");
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.checked = todo.completed;
+        checkbox.checked = todo.isSelected;
         checkbox.addEventListener("change", () => toggleComplete(todo.id));
         const span = document.createElement("span");
         span.textContent = todo.text;
-        if (todo.completed) {
+        if (todo.isSelected) {
             span.style.textDecoration = "line-through";
             span.style.color = "gray";
         }
