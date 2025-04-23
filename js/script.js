@@ -37,11 +37,27 @@ function toggleComplete(id) {
     console.log(data);
 }
 
+function editToDo(id) {
+    const todoToEdit = data.find(todo => todo.id === id);
+    const newText = prompt("Edit your todo: ", todoToEdit.text);
+    if (newText !== null) {
+        const trimmed = newText.trim();
+        if (trimmed !== "") {
+            data = data.map(todo => {
+                if (todo.id === id) {
+                    return { ...todo, text: trimmed };
+                }
+                return todo;
+            });
+            renderData();
+        }
+    }
+}
+
 function renderData() {
-    const listContainer = document.getElementById("list-container");
+    const listContainer = document.getElementById("list-container"); // ul k andar id diya hai
     listContainer.innerHTML = "";
     console.log(data);
-
     data.forEach(todo => {
         console.log(todo);
         const li = document.createElement("li");
@@ -55,9 +71,13 @@ function renderData() {
             span.style.textDecoration = "line-through";
             span.style.color = "gray";
         }
-
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.className = "edit-btn";
+        editBtn.addEventListener("click", () => editToDo(todo.id));
         li.appendChild(checkbox);
         li.appendChild(span);
         listContainer.appendChild(li);
+        li.appendChild(editBtn);
     });
 }
