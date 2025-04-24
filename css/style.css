@@ -138,7 +138,7 @@ li input[type="checkbox"] {
   color: black;
 }
 
-#save-button {
+#edit-button {
   font-size: 20px;
   cursor: pointer;
   padding: 10px;
@@ -147,7 +147,7 @@ li input[type="checkbox"] {
   background-color: blue;
 }
 
-#save-button:hover {
+#edit-button:hover {
   background-color: white;
   color: black;
 }
