@@ -40,7 +40,7 @@ function editToDo(id) {
     console.log(todo);
     document.getElementById("input-box").value = todo.text;
     document.getElementById("input-button").style.display = "none";
-    document.getElementById("save-button").style.display = "inline-block";
+    document.getElementById("edit-button").style.display = "inline-block";
     editId = id;
 }
 
@@ -55,7 +55,6 @@ function saveData() {
     data = data.map(todo =>
         todo.id === editId ? { ...todo, text: newText } : todo
     );
-    console.log(data.find(todo => todo.id === editId));
     updateStorage();
     renderData();
     inputBox.value = "";
