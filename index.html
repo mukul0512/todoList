@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO-DO List</title>
     <link rel="stylesheet" href="./css/style.css" />
 </head>
@@ -14,8 +16,28 @@
         <div id="todo-form">
             <input type="text" class="input-item" name="input_box" id="input-box" placeholder="Add your todo" />
             <button id="input-button" onclick="addData()">Add</button>
+            <button id="save-button" onclick="saveData()" style="display:none;">Save</button>
         </div>
         <ul id="list-container"></ul>
+    </div>
+
+    <div id="edit" style="display:none;">
+        <div id="edit-content">
+            <input type="text" id="modal-input" placeholder="Edit your todo" />
+            <button onclick="applyEdit()">Apply</button>
+            <button onclick="cancelEdit()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="custom-prompt" style="display: none;" class="popup-overlay">
+        <div class="popup-box">
+            <p>Edit your todo:</p>
+            <input type="text" id="prompt-input" />
+            <div class="popup-buttons">
+                <button id="apply-btn">Apply</button>
+                <button id="cancel-btn">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <script src="./js/script.js"></script>
