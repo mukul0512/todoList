@@ -58,7 +58,7 @@ function saveData() {
     updateStorage();
     renderData();
     inputBox.value = "";
-    document.getElementById("save-button").style.display = "none";
+    document.getElementById("edit-button").style.display = "none";
     document.getElementById("input-button").style.display = "inline-block";
     editId = null;
 }
