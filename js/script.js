@@ -1,9 +1,12 @@
-let data = [];
+// let data = [];
+let data = JSON.parse(localStorage.getItem("todos")) || [];
+console.log(data);
 let editId = null;
 
 function addData() {
     const inputBox = document.getElementById("input-box");
     const todoText = inputBox.value.trim();
+    console.log(todoText);
 
     if (todoText === "") {
         alert("Enter your todo");
@@ -15,68 +18,93 @@ function addData() {
         text: todoText,
         isSelected: false
     };
+    console.log(newData);
 
     data.push(newData);
+    updateStorage();
     renderData();
     inputBox.value = "";
 }
 
 function toggleComplete(id) {
-    data = data.map(todo => {
-        if (todo.id === id) {
-            return { ...todo, isSelected: !todo.isSelected };
-        }
-        return todo;
-    });
+    console.log(id);
+    data = data.map(todo =>
+        todo.id === id ? { ...todo, isSelected: !todo.isSelected } : todo
+    );
+    updateStorage();
     renderData();
 }
 
 function editToDo(id) {
-    editId = id;
     const todo = data.find(item => item.id === id);
-    const promptInput = document.getElementById("prompt-input");
-    promptInput.value = todo.text;
-    document.getElementById("custom-prompt").style.display = "flex";
+    console.log(todo);
+    document.getElementById("input-box").value = todo.text;
+    document.getElementById("input-button").style.display = "none";
+    document.getElementById("save-button").style.display = "inline-block";
+    editId = id;
 }
 
 function saveData() {
     const inputBox = document.getElementById("input-box");
     const newText = inputBox.value.trim();
+    console.log(newText);
+    if (newText === "" || editId === null) {
+        return;
+    }
 
-    if (newText === "" || editId === null) return;
-
-    data = data.map(todo => {
-        if (todo.id === editId) {
-            return { ...todo, text: newText };
-        }
-        return todo;
-    });
-
+    data = data.map(todo =>
+        todo.id === editId ? { ...todo, text: newText } : todo
+    );
+    console.log(data.find(todo => todo.id === editId));
+    updateStorage();
     renderData();
     inputBox.value = "";
-    editId = null;
-
     document.getElementById("save-button").style.display = "none";
     document.getElementById("input-button").style.display = "inline-block";
+    editId = null;
 }
 
+let deleteId = null;
 function deleteToDo(id) {
-    data = data.filter(todo => todo.id !== id);
+    console.log(id);
+    deleteId = id;
+    document.getElementById("confirm-popup").style.display = "flex";
+}
+
+document.getElementById("confirm-delete").addEventListener("click", () => {
+    console.log(deleteId);
+    data = data.filter(todo => todo.id !== deleteId);
+    updateStorage();
     renderData();
+    document.getElementById("confirm-popup").style.display = "none";
+});
+
+document.getElementById("cancel-delete").addEventListener("click", () => {
+
+    deleteId = null;
+    document.getElementById("confirm-popup").style.display = "none";
+});
+
+function updateStorage() {
+    localStorage.setItem("todos", JSON.stringify(data));
+    console.log(data);
 }
 
 function renderData() {
     const listContainer = document.getElementById("list-container");
     listContainer.innerHTML = "";
+    if (data.length === 0) {
+        listContainer.innerHTML = `<img src="../golfMan.png" alt="Empty" /> <h1>Empty ...</h1>`;
+        return;
+    }
 
     data.forEach(todo => {
+        console.log(todo);
         const li = document.createElement("li");
-
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = todo.isSelected;
         checkbox.addEventListener("change", () => toggleComplete(todo.id));
-
         const span = document.createElement("span");
         span.textContent = todo.text;
         if (todo.isSelected) {
@@ -102,18 +130,4 @@ function renderData() {
     });
 }
 
-document.getElementById("apply-btn").addEventListener("click", () => {
-    const newText = document.getElementById("prompt-input").value.trim();
-    if (newText !== "") {
-        const inputBox = document.getElementById("input-box");
-        inputBox.value = newText;
-        document.getElementById("save-button").style.display = "inline-block";
-        document.getElementById("input-button").style.display = "none";
-    }
-    document.getElementById("custom-prompt").style.display = "none";
-});
-
-document.getElementById("cancel-btn").addEventListener("click", () => {
-    document.getElementById("custom-prompt").style.display = "none";
-    editId = null;
-});
+renderData();
